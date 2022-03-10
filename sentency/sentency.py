@@ -9,19 +9,22 @@ def create_sentex_component(
     nlp: Language, name: str, sentence_regex: str, ignore_regex: str
 ):
     return Sentex(nlp, sentence_regex, ignore_regex)
+
+
 class Sentex:
     """
     Sentex is a spaCy pipeline component that adds spans to the list `Doc._.sentex`
     based on regular expression matches within each sentence of the document. If an
-    `ignore_regex` is given, sentences matching that regular expression will be ignored. 
+    `ignore_regex` is given, sentences matching that regular expression will be ignored.
 
-    nlp: `Language`, 
+    nlp: `Language`,
         A required argument for spacy to use this as a factory
     sentence_regex : `str`,
         A regular expression to match spans within each sentence of the document.
     ignore_regex : `str`,
         A regular expression to identify sentences that should be ignored.
     """
+
     def __init__(self, nlp: Language, sentence_regex: str, ignore_regex: str):
         self.sentence_regex = sentence_regex
         self.ignore_regex = ignore_regex

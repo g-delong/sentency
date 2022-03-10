@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8
+.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8 lint/black format
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -51,6 +51,13 @@ lint/flake8: ## check style with flake8
 	flake8 sentency tests
 
 lint: lint/flake8 ## check style
+
+lint/black:
+	black --check sentency tests 
+
+format:
+	isort sentency tests
+	black sentency tests
 
 test: ## run tests quickly with the default Python
 	pytest

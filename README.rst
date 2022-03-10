@@ -16,7 +16,7 @@ sentency
 
 
 
-A small lspaCy pipeline component for matching within document sentences using regular expressi
+A small spaCy pipeline component for matching within document sentences using regular expressions.
 
 
 * Free software: MIT license
