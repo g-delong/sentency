@@ -16,7 +16,7 @@ def regexize_keywords(
     Default is `' '`
     line_delimiter: `str`, The string separating lines into a regular expression.
     Default is `'\n'`
-    case_insensitive: `bool`, The keyword string to be converted into a regular expression.
+    case_insensitive: `bool`, Should the regular expression be case-insensitive?
     RETURNS: `str`, The regular expression
     """
     keyword_str = keyword_str.strip()
