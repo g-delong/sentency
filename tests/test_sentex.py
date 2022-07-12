@@ -26,3 +26,28 @@ def test_sentex():
     doc = nlp(text)
 
     assert len(doc._.sentex) == 1
+
+
+def test_sentex_annotate_ents():
+    text = """
+    Screening for abdominal aortic aneurysm. 
+    Impression: There is evidence of a fusiform 
+    abdominal aortic aneurysm measuring 3.4 cm.
+    """
+    keyword_regex = regexize_keywords(aaa_keywords)
+    ignore_regex = regexize_keywords(ignore_keywords)
+
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe(
+        "sentex",
+        config={
+            "sentence_regex": keyword_regex,
+            "ignore_regex": ignore_regex,
+            "annotate_ents": True,
+            "label": "AAA",
+        },
+    )
+
+    doc = nlp(text)
+
+    assert doc.ents[0].text == "abdominal aortic aneurysm"
