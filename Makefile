@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8 lint/black format
+.PHONY: clean clean-build clean-pyc clean-test coverage requirements dist docs help install lint lint/flake8 lint/black format
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -92,3 +92,8 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+## Install Python Dependencies
+requirements: 
+	python -m pip install -U pip setuptools wheel
+	python -m pip install -r requirements.txt
