@@ -3,8 +3,13 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
+from distutils.util import convert_path
 
-import sentency
+main_ns = {}
+ver_path = convert_path('sentency/_version.py')
+with open(ver_path) as ver_file:
+    exec(ver_file.read(), main_ns)
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -41,6 +46,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/g-delong/sentency',
-    version=sentency.__version__,
+    version=main_ns["__version__"],
     zip_safe=False,
 )

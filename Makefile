@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage requirements dist docs help install lint lint/flake8 lint/black format
+.PHONY: clean clean-build clean-pyc clean-test coverage requirements dist docs help test_release install lint lint/flake8 lint/black format
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -81,6 +81,9 @@ docs: ## generate Sphinx HTML documentation, including API docs
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+
+test_release: dist ## package and upload a release
+	twine upload --repository testpypi dist/*
 
 release: dist ## package and upload a release
 	twine upload dist/*
