@@ -4,6 +4,8 @@
 
 from setuptools import setup, find_packages
 
+import sentency
+
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -39,6 +41,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/g-delong/sentency',
-    version='0.1.2',
+    version=sentency.__version__,
     zip_safe=False,
 )
