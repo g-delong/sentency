@@ -4,6 +4,9 @@ from spacy.language import Language
 from spacy.pipeline.entityruler import EntityRuler
 from spacy.tokens import Doc, Span
 
+from .logs import get_logger
+
+logger = get_logger()
 
 @Language.factory(
     "sentex",
@@ -62,13 +65,17 @@ class Sentex:
     def __call__(self, doc: Doc) -> Doc:
 
         for sent in doc.sents:
-            should_ignore = bool(re.search(self.ignore_regex, sent.text))
+            logger.debug(f"sentence: {sent}")
+            should_ignore = self.ignore_regex.strip() != "" and bool(re.search(self.ignore_regex, sent.text))
             if should_ignore:
+                logger.debug("sentence ignored")
                 continue
             for match in re.finditer(self.sentence_regex, sent.text):
+                logger.debug(f"match: {match}")
                 start, end = match.span()
                 span = sent.char_span(start, end)
                 if span is not None:
+                    logger.debug("adding match to sentex")
                     doc._.sentex.append(span)
         if self.annotate_ents:
             self.set_annotations(doc)
