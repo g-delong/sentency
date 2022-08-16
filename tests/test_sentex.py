@@ -51,3 +51,22 @@ def test_sentex_annotate_ents():
     doc = nlp(text)
 
     assert doc.ents[0].text == "abdominal aortic aneurysm"
+
+def test_sentex_annotate_ents_expand_mode():
+    text = "Patient was aggressive. Other patient was aggressive."
+    keyword_regex = "(?i)aggress"
+
+    nlp = spacy.load("en_core_web_sm")
+    nlp.add_pipe(
+        "sentex",
+        config={
+            "sentence_regex": keyword_regex,
+            "annotate_ents": True,
+            "label": "NEG_DESC",
+        },
+    )
+
+    doc = nlp(text)
+
+    assert doc.ents[0].text == "aggressive"
+    assert doc.ents[1].text == "aggressive"

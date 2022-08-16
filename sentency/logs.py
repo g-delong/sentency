@@ -18,7 +18,7 @@ def get_console_handler() -> logging.StreamHandler:
     return console_handler
 
 
-def get_logger(name: Text = __name__, log_level: Union[Text, int] = logging.DEBUG) -> logging.Logger:
+def get_logger(name: Text = __name__, log_level: Union[Text, int] = logging.ERROR) -> logging.Logger:
     """Get logger.
     Args:
         name {Text}: logger name
