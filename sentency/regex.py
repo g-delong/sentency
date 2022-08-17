@@ -2,8 +2,8 @@ def regexize_keywords(
     keyword_str, keyword_delimiter=" ", line_delimiter="\n", case_insensitive=True
 ):
     r"""Convert a string of keywords into a regular expression that can be used as input
-    for the sentenCy sentex component. You can separate keywords individually or into groups
-    using keyword and line delimiters.
+    for the sentenCy sentex component. You can separate keywords individually or into
+    groups using keyword and line delimiters.
 
     Example usage:
     >>> from sentency.regex import regexize_keywords
@@ -12,8 +12,8 @@ def regexize_keywords(
     (?i)((abdominal.*aortic.*aneurysm)|(aneurysm.*abdominal.*aorta))
 
     keyword_str: `str`, The keyword string to be converted into a regular expression.
-    keyword_delimiter: `str`, The string separating individual keywords in `keyword_str`.
-    Default is `' '`
+    keyword_delimiter: `str`, The delimiter separating individual keywords in
+    `keyword_str`. Default is `' '`
     line_delimiter: `str`, The string separating lines into a regular expression.
     Default is `'\n'`
     case_insensitive: `bool`, Should the regular expression be case-insensitive?
