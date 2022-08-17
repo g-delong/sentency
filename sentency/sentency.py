@@ -1,12 +1,12 @@
 import re
 
 from spacy.language import Language
-from spacy.pipeline.entityruler import EntityRuler
 from spacy.tokens import Doc, Span
 
 from .logs import get_logger
 
 logger = get_logger(__name__)
+
 
 @Language.factory(
     "sentex",
@@ -67,7 +67,9 @@ class Sentex:
         prev_sent = None
         for i, sent in enumerate(doc.sents):
             logger.debug(f"sentence {i}: {sent}")
-            should_ignore = self.ignore_regex.strip() != "" and bool(re.search(self.ignore_regex, sent.text))
+            should_ignore = self.ignore_regex.strip() != "" and bool(
+                re.search(self.ignore_regex, sent.text)
+            )
             if should_ignore:
                 logger.debug("sentence ignored")
                 prev_sent = sent
@@ -77,12 +79,15 @@ class Sentex:
                 start, end = match.span()
                 # convert to doc in order to use 'expand' alignment mode
                 # in case indicies are inside token boundaries
-                span = sent.as_doc().char_span(start, end, alignment_mode='expand')
+                span = sent.as_doc().char_span(start, end, alignment_mode="expand")
                 if span is not None:
                     # realign span so start/end are relative to doc, not sent
                     span = self._realign_span(doc, span, prev_sent)
                     logger.debug(f"match {span.text} start: {start} end: {end}")
-                    logger.debug(f"start {span.start} end {span.end} start char {span.start_char} end char {span.end_char}")
+                    logger.debug(
+                        f"start {span.start} end {span.end}\
+                        start char {span.start_char} end char {span.end_char}"
+                    )
                     logger.debug("adding match to sentex")
                     doc._.sentex.append(span)
                 else:
@@ -93,7 +98,9 @@ class Sentex:
         return doc
 
     def set_annotations(self, doc):
-        """Modify the document in place. Logic taken from spacy.pipeline.entityruler.EntityRuler"""
+        """Modify the document in place.
+        Logic taken from spacy.pipeline.entityruler.EntityRuler
+        """
         entities = list(doc.ents)
         logger.debug(f"current entities: {entities}")
         new_entities = []
@@ -108,7 +115,7 @@ class Sentex:
                 entities = [
                     e for e in entities if not (e.start < end and e.end > start)
                 ]
-                
+
                 seen_tokens.update(range(start, end))
         doc.ents = entities + new_entities
 
@@ -119,4 +126,4 @@ class Sentex:
         offset = 0 if prev_sent is None else prev_sent.end
         start = span.start + offset
         end = span.end + offset
-        return doc[start: end]
+        return doc[start:end]

@@ -11,8 +11,8 @@ from .config import aaa_keywords, ignore_keywords
 
 def test_sentex():
     text = """
-    Screening for abdominal aortic aneurysm. 
-    Impression: There is evidence of a fusiform 
+    Screening for abdominal aortic aneurysm.
+    Impression: There is evidence of a fusiform
     abdominal aortic aneurysm measuring 3.4 cm.
     """
     keyword_regex = regexize_keywords(aaa_keywords)
@@ -30,8 +30,8 @@ def test_sentex():
 
 def test_sentex_annotate_ents():
     text = """
-    Screening for abdominal aortic aneurysm. 
-    Impression: There is evidence of a fusiform 
+    Screening for abdominal aortic aneurysm.
+    Impression: There is evidence of a fusiform
     abdominal aortic aneurysm measuring 3.4 cm.
     """
     keyword_regex = regexize_keywords(aaa_keywords)
@@ -51,6 +51,7 @@ def test_sentex_annotate_ents():
     doc = nlp(text)
 
     assert doc.ents[0].text == "abdominal aortic aneurysm"
+
 
 def test_sentex_annotate_ents_expand_mode():
     text = "Patient was aggressive. Other patient was aggressive."

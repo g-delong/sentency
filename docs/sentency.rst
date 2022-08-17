@@ -4,6 +4,14 @@ sentency package
 Submodules
 ----------
 
+sentency.logs module
+--------------------
+
+.. automodule:: sentency.logs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 sentency.regex module
 ---------------------
 
